@@ -1,0 +1,19 @@
+version: 1.0.{build}
+pull_requests:
+  do_not_increment_build_number: true
+image: Visual Studio 2019
+configuration: Release
+platform: x64
+shallow_clone: true
+clone_folder: C:\openjdk
+environment:
+  APPVEYOR_RDP_PASSWORD:
+    secure: XwTDukSNKnArn49FEtMm32fw3/qrN+iXUFAbhNa2bH8=
+#before_build:
+build_script:
+  - cmd: build.bat
+test: off
+
+#on_finish:
+on_failure:
+  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
